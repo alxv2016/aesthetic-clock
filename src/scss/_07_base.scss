@@ -1,0 +1,74 @@
+// html document setup
+/* Base styles */
+//css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+* {
+  &,
+  &:after,
+  &:before {
+    box-sizing: inherit;
+  }
+  -webkit-tap-highlight-color: rbga(0, 0 0, 0);
+  -webkit-text-size-adjust: none;
+}
+
+body {
+  font-family: $base-font-family;
+  line-height: $body-line-height;
+  font-weight: 400;
+  height: 100%;
+  color: color('light');
+  background-color: color('darker');
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // removes bounce in scrolling
+  overscroll-behavior: none;
+  font-size: $body--2;
+  @include breakpoint(sm) {
+    font-size: $body--1;
+  }
+}
+// Links
+a {
+  //color: $link-color;
+  text-decoration: underline;
+  // Remove the gray background on active links in IE 11.
+  background-color: transparent;
+  // Remove gaps in links underline in iOS 8+ and Safari 8+.
+  -webkit-text-decoration-skip: ink;
+  @include on-focus {
+    //color: $hover-color;
+    text-decoration: underline;
+  }
+}
+
+/// Images
+img {
+  // Making images responsive by default
+  width: 100%;
+  font-style: italic;
+  vertical-align: middle;
+}
+// if height or width specified then no longer responsive image
+img[height],
+img[width] {
+  width: auto;
+}
+
+// Accessibility
+a,
+button,
+select,
+textarea {
+  @include on-focus {
+    // for accessibility reasons we add browser focus ring
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+}

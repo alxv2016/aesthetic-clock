@@ -1,0 +1,34 @@
+// Accessibility color function, takes a color input and outputs
+// the proper contrast color base on the input.
+// NOTE: color must not contain any opacity (RGBA) values
+@function contrast-check($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+  @if ($yiq >= 150) {
+    @return black;
+  } @else {
+    @return white;
+  }
+}
+
+@function color($key: 'dark') {
+  @return map-get($colors, $key);
+}
+
+@function icon-size($key: 'xs') {
+  @return map-get($icon-sizes, $key);
+}
+
+@function max-width($key: 'xs') {
+  @return map-get($max-width, $key);
+}
+
+@function font-weight($key: 'regular') {
+  @return map-get($font-weights, $key);
+}
+
+@function font-family($key: 'roboto') {
+  @return map-get($font-families, $key);
+}

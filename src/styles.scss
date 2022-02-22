@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+// Systems
+@import './scss/01_functions';
+@import './scss/02_mixins';
+@import './scss/03_normailize';
+@import './scss/04_resets';
+@import './scss/05_variables';
+@import './scss/06_typography';
+@import './scss/07_base';
+// Third party over-rides

@@ -1,0 +1,199 @@
+// helper mixins ie predefined styles
+//
+/// focus events
+/// Usage: @include on-event;
+@mixin on-focus($self: false) {
+  @if $self {
+    &,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+// media query mixin
+// use the base-breakpoints map
+// usage: @include breakpoint($breakpoint);
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @warn 'error value does not exist in $base-breakpoints';
+  }
+}
+
+@mixin button-reset {
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  min-width: 0;
+  background-color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}
+// ios / safari frosted glass effect
+// only supported on Edge, Safari
+@mixin backdrop-filter {
+  @supports (backdrop-filter: saturate(180%) blur(20px)) {
+    @content;
+  }
+}
+
+@mixin smooth-gradient($color) {
+  background: linear-gradient(
+    90deg,
+    rgba($color, 0) 0%,
+    rgba($color, 0.019) 4.4%,
+    rgba($color, 0.07) 8.55%,
+    rgba($color, 0.138) 12.1%,
+    rgba($color, 0.212) 15.25%,
+    rgba($color, 0.291) 18.15%,
+    rgba($color, 0.373) 20.9%,
+    rgba($color, 0.455) 23.55%,
+    rgba($color, 0.538) 26.2%,
+    rgba($color, 0.62) 28.85%,
+    rgba($color, 0.701) 31.6%,
+    rgba($color, 0.781) 34.5%,
+    rgba($color, 0.857) 37.65%,
+    rgba($color, 0.925) 41.15%,
+    rgba($color, 0.978) 45.25%,
+    rgba($color, 1) 50%,
+    rgba($color, 0.978) 54.75%,
+    rgba($color, 0.925) 58.85%,
+    rgba($color, 0.857) 62.35%,
+    rgba($color, 0.781) 65.5%,
+    rgba($color, 0.701) 68.4%,
+    rgba($color, 0.62) 71.15%,
+    rgba($color, 0.538) 73.8%,
+    rgba($color, 0.455) 76.45%,
+    rgba($color, 0.373) 79.1%,
+    rgba($color, 0.291) 81.85%,
+    rgba($color, 0.212) 84.75%,
+    rgba($color, 0.138) 87.9%,
+    rgba($color, 0.07) 91.45%,
+    rgba($color, 0.019) 95.6%,
+    rgba($color, 0) 100%
+  );
+}
+
+@mixin smooth-gradient-vert($color) {
+  background: linear-gradient(
+    180deg,
+    rgba($color, 0) 0%,
+    rgba($color, 0.019) 4.4%,
+    rgba($color, 0.07) 8.55%,
+    rgba($color, 0.138) 12.1%,
+    rgba($color, 0.212) 15.25%,
+    rgba($color, 0.291) 18.15%,
+    rgba($color, 0.373) 20.9%,
+    rgba($color, 0.455) 23.55%,
+    rgba($color, 0.538) 26.2%,
+    rgba($color, 0.62) 28.85%,
+    rgba($color, 0.701) 31.6%,
+    rgba($color, 0.781) 34.5%,
+    rgba($color, 0.857) 37.65%,
+    rgba($color, 0.925) 41.15%,
+    rgba($color, 0.978) 45.25%,
+    rgba($color, 1) 50%,
+    rgba($color, 0.978) 54.75%,
+    rgba($color, 0.925) 58.85%,
+    rgba($color, 0.857) 62.35%,
+    rgba($color, 0.781) 65.5%,
+    rgba($color, 0.701) 68.4%,
+    rgba($color, 0.62) 71.15%,
+    rgba($color, 0.538) 73.8%,
+    rgba($color, 0.455) 76.45%,
+    rgba($color, 0.373) 79.1%,
+    rgba($color, 0.291) 81.85%,
+    rgba($color, 0.212) 84.75%,
+    rgba($color, 0.138) 87.9%,
+    rgba($color, 0.07) 91.45%,
+    rgba($color, 0.019) 95.6%,
+    rgba($color, 0) 100%
+  );
+}
+
+@mixin frosted-glass($color, $opacity: false) {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba($color, 0.8);
+  @if $opacity {
+    background-color: rgba($color, $opacity);
+  }
+}
+
+@mixin image-overlay($color) {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba($color, 0.125) 30%, rgba($color, 0.75) 100%);
+
+  // @include breakpoint(md) {
+  //   background: linear-gradient(180deg, rgba($color, 0) 0%, rgba($color, 0.75) 100%);
+  // }
+}
+
+// contain screen size
+@mixin container-padding {
+  padding: 0 $spacing--lg;
+  margin: auto;
+  @include breakpoint(md) {
+    padding: 0 $spacing--3xl;
+    max-width: max-width('md');
+  }
+  @include breakpoint(lg) {
+    padding: 0 $spacing--3xl;
+    max-width: max-width('lg');
+  }
+}
+
+// Material elevations
+@mixin elevate-1($color, $opacity: false) {
+  box-shadow: 0 1px 3px rgba($color, 0.12), 0 1px 2px rgba($color, 0.24);
+  @if $opacity {
+    box-shadow: 0 1px 3px rgba($color, $opacity), 0 1px 2px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-2($color, $opacity: false) {
+  box-shadow: 0 3px 6px rgba($color, 0.12), 0 3px 6px rgba($color, 0.24);
+  @if $opacity {
+    box-shadow: 0 3px 6px rgba($color, $opacity), 0 3px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-3($color, $opacity: false) {
+  box-shadow: 0 10px 20px rgba($color, 0.12), 0 6px 6px rgba($color, 0.23);
+  @if $opacity {
+    box-shadow: 0 10px 20px rgba($color, $opacity), 0 6px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-4($color, $opacity: false) {
+  box-shadow: 0 14px 28px rgba($color, 0.12), 0 10px 10px rgba($color, 0.22);
+  @if $opacity {
+    box-shadow: 0 14px 28px rgba($color, $opacity), 0 10px 10px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-5($color, $opacity: false) {
+  box-shadow: 0 19px 38px rgba($color, 0.12), 0 15px 12px rgba($color, 0.22);
+  @if $opacity {
+    box-shadow: 0 19px 38px rgba($color, $opacity), 0 15px 12px rgba($color, $opacity);
+  }
+}

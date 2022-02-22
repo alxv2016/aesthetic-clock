@@ -1,0 +1,8 @@
+package.json
+package-lock.json
+angular.json
+tslint.json
+tsconfig.json
+dist
+README.md
+.vscode/*

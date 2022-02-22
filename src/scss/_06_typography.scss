@@ -1,0 +1,263 @@
+/* Typography styles */
+p {
+  font-size: $body--2;
+  @include breakpoint(md) {
+    font-size: $body--1;
+  }
+  strong {
+    color: color('volt');
+  }
+}
+
+p ~ p {
+  margin-top: $spacing--lg;
+  @include breakpoint(md) {
+    margin-top: $spacing--xl;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+form legend {
+  line-height: $heading-line-height;
+  font-weight: inherit;
+  margin: $spacing--xl 0 $spacing--sm;
+}
+
+// ps5 titles
+.display-1 {
+  font-size: $large--title;
+  font-weight: font-weight('bold');
+  line-height: 1.15;
+  margin: 0;
+  @include breakpoint(sm) {
+    font-size: $huge--title;
+  }
+  @include breakpoint(md) {
+    font-size: $headliner--1;
+  }
+  @include breakpoint(lg) {
+    font-size: $headliner--2;
+  }
+  & ~ p {
+    margin-top: $spacing--xl;
+  }
+}
+
+.display-2 {
+  font-size: $title--3;
+  line-height: 1.15;
+  font-weight: font-weight('bold');
+  @include breakpoint(md) {
+    font-size: $title--2;
+  }
+  @include breakpoint(lg) {
+    font-size: $title--1;
+  }
+  & ~ h2,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: 0;
+  }
+  & ~ p {
+    margin-top: $spacing--xl;
+  }
+}
+
+.display-3 {
+  font-size: $title--1;
+  line-height: 1.15;
+  font-weight: font-weight('bold');
+  @include breakpoint(md) {
+    font-size: $large--title;
+  }
+  @include breakpoint(lg) {
+    font-size: $huge--title;
+  }
+  & ~ h2,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: 0;
+  }
+  & ~ p {
+    margin-top: $spacing--lg;
+  }
+}
+
+.display-4 {
+  font-size: $title--2;
+  line-height: 1.15;
+  font-weight: font-weight('bold');
+  @include breakpoint(lg) {
+    font-size: $title--1;
+  }
+  & ~ h2,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: 0;
+  }
+  & ~ p {
+    margin-top: $spacing--lg;
+  }
+}
+
+.sub-headline {
+  font-size: $subtitle;
+  font-weight: font-weight('medium');
+  line-height: 1.45;
+  margin: 0;
+  @include breakpoint(md) {
+    font-size: $subtitle--2;
+  }
+  & ~ h1,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: $spacing--2xs;
+  }
+}
+
+.headline {
+  font-size: $subtitle--2;
+  font-weight: font-weight('bold');
+  line-height: 1.45;
+  margin: 0;
+  @include breakpoint(md) {
+    font-size: $title--3;
+  }
+  & ~ h1,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: $spacing--2xs;
+  }
+}
+
+.large-print {
+  font-size: $subtitle;
+  line-height: 1.45;
+  font-weight: font-weight('regular');
+  @include breakpoint(md) {
+    font-size: $subtitle--2;
+  }
+
+  &--mono {
+    font-family: font-family('mono');
+  }
+}
+
+.small-print {
+  font-size: $body--1;
+  @include breakpoint(md) {
+    font-size: $subtitle;
+  }
+  &--mono {
+    font-family: font-family('mono');
+  }
+}
+
+// modifiers
+.copy--glitch {
+  text-shadow: 0px 0px 0px rgba(0, 70, 249, 1), 0px 0px 0px rgba(255, 0, 0, 1);
+}
+
+.copy--muted {
+  color: color('offgrey');
+}
+
+.copy--carbon {
+  color: color('carbon');
+}
+
+.copy--lit {
+  color: color('lit');
+}
+
+.copy--tint {
+  color: color('tint');
+}
+
+.copy--accent-1 {
+  color: color('accent1');
+}
+
+.copy--accent-2 {
+  color: color('accent2');
+}
+
+h1,
+.title--1 {
+  font-size: $title--2;
+  margin-top: 0;
+  @include breakpoint(md) {
+    font-size: $title--1;
+  }
+}
+
+h2,
+.title--2 {
+  font-size: $title--3;
+  font-weight: font-weight('medium');
+  @include breakpoint(md) {
+    font-size: $title--2;
+  }
+}
+
+h3,
+.title--3 {
+  font-size: $subtitle--2;
+  @include breakpoint(md) {
+    font-size: $title--3;
+  }
+}
+
+h4,
+.subtitle--2 {
+  font-size: $subtitle;
+  @include breakpoint(md) {
+    font-size: $subtitle--2;
+  }
+}
+
+.subtitle,
+.body--large {
+  font-size: $body--1;
+  @include breakpoint(md) {
+    font-size: $subtitle;
+  }
+}
+
+.body--1 {
+  font-size: $body--2;
+  @include breakpoint(md) {
+    font-size: $body--1;
+  }
+}
+
+.body--mono {
+  font-family: font-family('mono');
+}
+
+.body--2 {
+  font-size: $body--2;
+}
+
+.overline,
+.caption,
+small {
+  font-size: $overline;
+}
+
+.legal {
+  font-size: $legal;
+}
+
+b,
+strong {
+  font-weight: 500;
+}
