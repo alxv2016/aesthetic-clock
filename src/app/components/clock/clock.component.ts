@@ -23,6 +23,8 @@ export class ClockComponent implements OnInit, AfterViewInit {
   seconds: string | undefined = '00';
   minutes: string | undefined = '00';
   hours: string | undefined = '00';
+  todaysDate: string | undefined = 'Friday, January 16 2022';
+  meridian: string | undefined = '--';
   @HostBinding('class') class = 'c-clock';
   @ViewChild('secondsDigit') secondsDigit!: ElementRef;
   @ViewChild('minutesDigit') minutesDigit!: ElementRef;
@@ -34,23 +36,40 @@ export class ClockComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   private initGSAP(): void {
+    const humanDate = moment();
+    this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
     const digits = this.digit.map((d) => d.nativeElement);
+    const cloclTL = gsap.timeline({
+      defaults: {
+        ease: 'back',
+      },
+    });
     setInterval(() => {
-      const date = moment();
-      this.seconds = date.format('ss');
-      this.minutes = date.format('mm');
-      this.hours = date.format('hh');
-      gsap.to(digits[0], {
-        yPercent: -Number(this.seconds) / 6,
-      });
-      gsap.to(digits[1], {
-        yPercent: Number(this.seconds) / 6,
-      });
-      gsap.to(digits[2], {
-        yPercent: -Number(this.seconds) / 4,
-      });
+      const now = moment();
+      const percent = Number(this.seconds) / 6;
+      this.seconds = now.format('ss');
+      this.minutes = now.format('mm');
+      this.hours = now.format('hh');
+      this.meridian = now.format('a');
 
-      console.log(Number(this.seconds) / 2);
+      cloclTL
+        .to(digits[0], {
+          yPercent: -percent,
+        })
+        .to(
+          digits[1],
+          {
+            yPercent: percent,
+          },
+          0
+        )
+        .to(
+          digits[2],
+          {
+            yPercent: -percent,
+          },
+          0
+        );
     }, 1000);
   }
 

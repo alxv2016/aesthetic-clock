@@ -18,6 +18,7 @@ $max-width: (
   md: 768px,
   lg: 992px,
   xl: 1024px,
+  2xl: 1440px,
 ) !default;
 // Icon sizes
 $icon-sizes: (
@@ -48,6 +49,7 @@ $colors: (
   accent1: #fc3d56,
   accent2: #942066,
   light: #f9fdfd,
+  neutral: #6f6f6f,
   dark: #280829,
 ) !default;
 // Border radius

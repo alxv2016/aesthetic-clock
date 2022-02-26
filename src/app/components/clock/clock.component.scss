@@ -2,9 +2,12 @@
 
 :host-context(.c-clock) {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   width: 100%;
+  @include container-padding;
 }
 
 .c-clock {
@@ -14,9 +17,19 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
     width: 100%;
-    height: 100%;
   }
+  &__date {
+    position: relative;
+    padding: $spacing--lg 0;
+  }
+}
+
+.c-clock-date-label {
+  font-size: $body--1;
+  font-weight: 500;
+  color: color('neutral');
 }
 
 .c-clock-display {
