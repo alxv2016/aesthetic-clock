@@ -20,9 +20,9 @@ import * as moment from 'moment';
   styleUrls: ['./clock.component.scss'],
 })
 export class ClockComponent implements OnInit, AfterViewInit {
-  seconds: string | undefined = '10';
-  minutes: string | undefined = '10';
-  hours: string | undefined = '10';
+  seconds: string | undefined = '00';
+  minutes: string | undefined = '00';
+  hours: string | undefined = '00';
   todaysDate: string | undefined = 'Friday, January 16 2022';
   meridian: string | undefined = 'am';
   @HostBinding('class') class = 'c-clock';
@@ -40,44 +40,42 @@ export class ClockComponent implements OnInit, AfterViewInit {
 
   private initTime(gsapTimeLine: GSAPTimeline): void {
     const now = moment();
-    const percent = Number(this.seconds) / 6;
+    const percent = Number(this.seconds) / 4;
     this.seconds = now.format('ss');
     this.minutes = now.format('mm');
     this.hours = now.format('hh');
     this.meridian = now.format('a');
-
-    // cloclTL
+    // const digits = this.digit.map((d) => d.nativeElement);
+    // gsapTimeLine
     //   .to(digits[0], {
-    //     yPercent: -percent,
+    //     xPercent: -percent,
     //   })
     //   .to(
     //     digits[1],
     //     {
-    //       yPercent: percent,
+    //       xPercent: percent,
     //     },
     //     0
     //   )
     //   .to(
     //     digits[2],
     //     {
-    //       yPercent: -percent,
+    //       xPercent: -percent,
     //     },
     //     0
     //   );
   }
 
   private initGSAP(): void {
-    const digits = this.digit.map((d) => d.nativeElement);
-
     const cloclTL = gsap.timeline({
       defaults: {
         ease: 'back',
       },
     });
 
-    // setInterval(() => {
-    //   this.initTime(cloclTL);
-    // }, 1000);
+    setInterval(() => {
+      this.initTime(cloclTL);
+    }, 1000);
   }
 
   ngAfterViewInit(): void {
