@@ -33,43 +33,50 @@ export class ClockComponent implements OnInit, AfterViewInit {
     gsap.registerPlugin(ScrollTrigger);
   }
 
-  ngOnInit(): void {}
-
-  private initGSAP(): void {
+  ngOnInit(): void {
     const humanDate = moment();
     this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
+  }
+
+  private initTime(gsapTimeLine: GSAPTimeline): void {
+    const now = moment();
+    const percent = Number(this.seconds) / 6;
+    this.seconds = now.format('ss');
+    this.minutes = now.format('mm');
+    this.hours = now.format('hh');
+    this.meridian = now.format('a');
+
+    // cloclTL
+    //   .to(digits[0], {
+    //     yPercent: -percent,
+    //   })
+    //   .to(
+    //     digits[1],
+    //     {
+    //       yPercent: percent,
+    //     },
+    //     0
+    //   )
+    //   .to(
+    //     digits[2],
+    //     {
+    //       yPercent: -percent,
+    //     },
+    //     0
+    //   );
+  }
+
+  private initGSAP(): void {
     const digits = this.digit.map((d) => d.nativeElement);
+
     const cloclTL = gsap.timeline({
       defaults: {
         ease: 'back',
       },
     });
-    setInterval(() => {
-      const now = moment();
-      const percent = Number(this.seconds) / 6;
-      this.seconds = now.format('ss');
-      this.minutes = now.format('mm');
-      this.hours = now.format('hh');
-      this.meridian = now.format('a');
 
-      cloclTL
-        .to(digits[0], {
-          yPercent: -percent,
-        })
-        .to(
-          digits[1],
-          {
-            yPercent: percent,
-          },
-          0
-        )
-        .to(
-          digits[2],
-          {
-            yPercent: -percent,
-          },
-          0
-        );
+    setInterval(() => {
+      this.initTime(cloclTL);
     }, 1000);
   }
 
