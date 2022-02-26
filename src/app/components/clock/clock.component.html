@@ -1,0 +1,24 @@
+<div class="c-clock__container">
+  <div class="c-clock-display c-clock-display--hour" #digit>
+    <div class="c-clock-display__container">
+      <span class="c-clock-digit">{{ hours }}</span>
+    </div>
+    <div class="c-clock-colons">
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+  </div>
+  <div class="c-clock-display" #digit>
+    <div class="c-clock-display__container">
+      <span class="c-clock-digit">{{ minutes }}</span>
+    </div>
+  </div>
+  <div class="c-clock-display" #digit>
+    <div class="c-clock-display__container">
+      <span class="c-clock-digit c-clock-digit--seconds">{{ seconds }}</span>
+    </div>
+    <div class="c-clock-meridian">
+      <span class="c-clock-meridian__label">am</span>
+    </div>
+  </div>
+</div>

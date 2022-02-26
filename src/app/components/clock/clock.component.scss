@@ -1,0 +1,103 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-clock) {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.c-clock {
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.c-clock-display {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 320px;
+  margin-right: $spacing--lg;
+  &:last-child {
+    margin-right: 0;
+  }
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    transform: skew(-8deg, -4deg);
+    border-right: 0.75px solid rgba(color('dark'), 0.045);
+  }
+  &--hour {
+    margin-right: $spacing--2xl;
+  }
+}
+
+.c-clock-digit {
+  position: relative;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  font-style: italic;
+  font-size: $clock-digit;
+  letter-spacing: -0.75rem;
+  color: color('dark');
+  text-shadow: 0 14px 28px rgba(color('dark'), 0.12), 0 10px 10px rgba(color('dark'), 0.22);
+
+  &--seconds {
+    font-weight: 600;
+    color: color('accent1');
+    text-shadow: 0 14px 28px rgba(color('accent1'), 0.12), 0 10px 10px rgba(color('accent1'), 0.22);
+  }
+}
+
+.c-clock-colons {
+  position: absolute;
+  z-index: 1;
+  right: -$spacing--xl;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  transform: skew(-4deg, -2deg);
+  .circle {
+    height: 34px;
+    width: 34px;
+    border-radius: 100%;
+    background-color: color('accent1');
+    box-shadow: 0 14px 28px rgba(color('accent1'), 0.12), 0 10px 10px rgba(color('accent1'), 0.22);
+  }
+
+  .circle ~ .circle {
+    margin-top: $layout--md;
+  }
+}
+
+.c-clock-meridian {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  &__label {
+    font-size: $large--title;
+    font-weight: 500;
+    color: color('accent2');
+    line-height: 1;
+  }
+}
