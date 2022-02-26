@@ -197,3 +197,31 @@
     box-shadow: 0 19px 38px rgba($color, $opacity), 0 15px 12px rgba($color, $opacity);
   }
 }
+
+@mixin text-elevate-2($color, $opacity: false) {
+  text-shadow: 0 3px 6px rgba($color, 0.12), 0 3px 6px rgba($color, 0.24);
+  @if $opacity {
+    text-shadow: 0 3px 6px rgba($color, $opacity), 0 3px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin text-elevate-3($color, $opacity: false) {
+  text-shadow: 0 10px 20px rgba($color, 0.12), 0 6px 6px rgba($color, 0.23);
+  @if $opacity {
+    text-shadow: 0 10px 20px rgba($color, $opacity), 0 6px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin text-elevate-4($color, $opacity: false) {
+  text-shadow: 0 14px 28px rgba($color, 0.12), 0 10px 10px rgba($color, 0.22);
+  @if $opacity {
+    text-shadow: 0 14px 28px rgba($color, $opacity), 0 10px 10px rgba($color, $opacity);
+  }
+}
+
+@mixin text-elevate-5($color, $opacity: false) {
+  text-shadow: 0 19px 38px rgba($color, 0.12), 0 15px 12px rgba($color, 0.22);
+  @if $opacity {
+    text-shadow: 0 19px 38px rgba($color, $opacity), 0 15px 12px rgba($color, $opacity);
+  }
+}

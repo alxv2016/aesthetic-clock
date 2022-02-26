@@ -20,11 +20,11 @@ import * as moment from 'moment';
   styleUrls: ['./clock.component.scss'],
 })
 export class ClockComponent implements OnInit, AfterViewInit {
-  seconds: string | undefined = '00';
-  minutes: string | undefined = '00';
-  hours: string | undefined = '00';
+  seconds: string | undefined = '10';
+  minutes: string | undefined = '10';
+  hours: string | undefined = '10';
   todaysDate: string | undefined = 'Friday, January 16 2022';
-  meridian: string | undefined = '--';
+  meridian: string | undefined = 'am';
   @HostBinding('class') class = 'c-clock';
   @ViewChild('secondsDigit') secondsDigit!: ElementRef;
   @ViewChild('minutesDigit') minutesDigit!: ElementRef;
@@ -75,9 +75,9 @@ export class ClockComponent implements OnInit, AfterViewInit {
       },
     });
 
-    setInterval(() => {
-      this.initTime(cloclTL);
-    }, 1000);
+    // setInterval(() => {
+    //   this.initTime(cloclTL);
+    // }, 1000);
   }
 
   ngAfterViewInit(): void {

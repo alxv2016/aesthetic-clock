@@ -72,8 +72,11 @@ $huge--title: 3.58rem; // (2.968 * 1.2) 57px
 $headliner--1: 4.3rem; //68px;
 $headliner--2: 5.16rem; //82.56px
 $headliner--3: 6.192rem; //99px
-$clock-digit--sm: 7.43rem;
-$clock-digit: 18.488rem;
+$clock-digit--xs: 7.43rem;
+$clock-digit--sm: 8.916rem;
+$clock-digit--md: 12.839rem;
+$clock-digit--lg: 15.407rem;
+$clock-digit--xl: 18.488rem;
 // Spacing scale
 $spacing--2xs: 0.125rem; // 2px
 $spacing--xs: 0.25rem; // 4px
