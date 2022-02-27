@@ -11,7 +11,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import * as moment from 'moment';
 
 @Component({
@@ -26,13 +25,9 @@ export class ClockComponent implements OnInit, AfterViewInit {
   todaysDate: string | undefined = 'Friday, January 16 2022';
   meridian: string | undefined = 'AM';
   @HostBinding('class') class = 'c-clock';
-  // @ViewChild('secondsDigit') secondsDigit!: ElementRef;
-  // @ViewChild('minutesDigit') minutesDigit!: ElementRef;
   @ViewChildren('digit', {read: ElementRef}) digit!: QueryList<ElementRef>;
   @ViewChildren('colon', {read: ElementRef}) colon!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private ngZone: NgZone) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
+  constructor(private element: ElementRef, private render: Renderer2, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     const humanDate = moment();
@@ -68,17 +63,17 @@ export class ClockComponent implements OnInit, AfterViewInit {
       const momentum = 12;
       const now = moment();
       const count = Number(this.seconds);
+      this.seconds = now.format('ss');
+      this.minutes = now.format('mm');
+      this.hours = now.format('hh');
+      this.meridian = now.format('A');
+
       if (count >= 59) {
         minuteCount += momentum;
       }
       if (minuteCount >= 60) {
         minuteCount = 0;
       }
-
-      this.seconds = now.format('ss');
-      this.minutes = now.format('mm');
-      this.hours = now.format('hh');
-      this.meridian = now.format('A');
 
       clockTL
         .to(digits[1], {
@@ -94,8 +89,6 @@ export class ClockComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.initGSAP();
-    });
+    this.initGSAP();
   }
 }
