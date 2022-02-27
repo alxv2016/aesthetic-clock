@@ -32,22 +32,19 @@
 .c-clock-display {
   position: relative;
   flex-shrink: 0;
-  width: 180px;
+  width: 200px;
   @include breakpoint(sm) {
     width: 260px;
   }
   @include breakpoint(md) {
-    width: 320px;
+    width: 300px;
   }
   @include breakpoint(lg) {
-    width: 300px;
     &:first-child,
     &:first-of-type {
-      margin-right: $layout--md;
+      margin-right: $layout--xs;
+      z-index: 1;
     }
-  }
-  @include breakpoint(xl) {
-    width: 370px;
   }
 
   &__container {
@@ -72,26 +69,19 @@
   font-size: $clock-digit--sm;
   letter-spacing: -0.25rem;
   color: color('dark');
-  @include text-elevate-3(color('dark'), 0.25);
+  @include text-elevate-3(color('dark'), 0.175);
 
   @include breakpoint(sm) {
     font-size: $clock-digit--md;
   }
   @include breakpoint(md) {
     font-size: $clock-digit--lg;
-    @include text-elevate-4(color('dark'), 0.25);
-  }
-  @include breakpoint(xl) {
-    font-size: $clock-digit--xl;
   }
 
   &--seconds {
     font-weight: 600;
     color: color('accent1');
-    @include text-elevate-3(color('accent1'), 0.25);
-    @include breakpoint(md) {
-      @include text-elevate-4(color('accent1'), 0.25);
-    }
+    @include text-elevate-3(color('accent1'), 0.175);
   }
 }
 
@@ -105,16 +95,13 @@
   justify-content: center;
   height: 100%;
   transform: skew(-4deg, -2deg);
-  @include breakpoint(lg) {
-    right: -$spacing--lg;
-  }
 
   .circle {
     height: 16px;
     width: 16px;
     border-radius: 100%;
     background-color: color('accent1');
-    @include elevate-2(color('accent1'), 0.25);
+    @include elevate-3(color('accent1'), 0.195);
     @include breakpoint(sm) {
       height: 24px;
       width: 24px;
@@ -122,11 +109,6 @@
     @include breakpoint(md) {
       height: 28px;
       width: 28px;
-      @include elevate-3(color('accent1'), 0.25);
-    }
-    @include breakpoint(xl) {
-      height: 32px;
-      width: 32px;
     }
   }
 
@@ -138,9 +120,6 @@
     @include breakpoint(md) {
       margin-top: $layout--md;
     }
-    @include breakpoint(lg) {
-      margin-top: $layout--lg;
-    }
   }
 }
 
@@ -150,22 +129,16 @@
   right: 0;
 
   &__label {
-    font-size: $subtitle--2;
-    font-weight: 500;
+    font-size: $title--3;
+    font-weight: 600;
     line-height: 1;
     color: color('accent2');
 
     @include breakpoint(sm) {
-      font-size: $title--3;
-    }
-    @include breakpoint(md) {
       font-size: $title--2;
     }
-    @include breakpoint(lg) {
+    @include breakpoint(md) {
       font-size: $title--1;
-    }
-    @include breakpoint(xl) {
-      font-size: $large--title;
     }
   }
 }
@@ -179,8 +152,5 @@
   }
   @include breakpoint(md) {
     font-size: $body--1;
-  }
-  @include breakpoint(xl) {
-    font-size: $subtitle;
   }
 }
