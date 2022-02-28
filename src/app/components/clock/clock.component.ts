@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {gsap} from 'gsap';
 import * as moment from 'moment';
+import {DarkModeService} from 'src/app/services/dark-mode.service';
 
 @Component({
   selector: 'c-clock',
@@ -24,14 +25,25 @@ export class ClockComponent implements OnInit, AfterViewInit {
   hours: string | undefined = '00';
   todaysDate: string | undefined = 'Friday, January 16 2022';
   meridian: string | undefined = 'AM';
+  darkMode = false;
   @HostBinding('class') class = 'c-clock';
   @ViewChildren('digit', {read: ElementRef}) digit!: QueryList<ElementRef>;
   @ViewChildren('colon', {read: ElementRef}) colon!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private ngZone: NgZone) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private ngZone: NgZone,
+    private darkModeService: DarkModeService
+  ) {}
 
   ngOnInit(): void {
     const humanDate = moment();
     this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
+    this.darkModeService.darkModeState$.subscribe((s) => console.log(s));
+  }
+
+  toggleDarkMode(): void {
+    this.darkModeService.toggleDarkMode();
   }
 
   private initGSAP(): void {
