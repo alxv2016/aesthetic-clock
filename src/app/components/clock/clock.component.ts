@@ -39,7 +39,12 @@ export class ClockComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const humanDate = moment();
     this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
-    this.darkModeService.darkModeState$.subscribe((s) => console.log(s));
+    this.darkModeService.darkModeState$.subscribe((darkState) => {
+      console.log(darkState);
+      darkState.prefersDark
+        ? this.render.addClass(this.element.nativeElement, 'dark')
+        : this.render.removeClass(this.element.nativeElement, 'dark');
+    });
   }
 
   toggleDarkMode(): void {
@@ -90,7 +95,7 @@ export class ClockComponent implements OnInit, AfterViewInit {
       clockTL
         .to(digits[1], {
           xPercent: Math.floor(Math.sin(minuteCount) * momentum),
-          yPercent: Math.floor(Math.cos(minuteCount) * momentum),
+          yPercent: Math.floor(Math.sin(minuteCount) * momentum) * -1,
         })
         .to(digits[2], {
           xPercent: Math.floor(Math.sin(count) * momentum),

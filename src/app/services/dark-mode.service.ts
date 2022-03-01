@@ -3,12 +3,10 @@ import {BehaviorSubject, catchError, map, Observable, of, switchMap} from 'rxjs'
 import {BreakpointObserver, MediaMatcher} from '@angular/cdk/layout';
 
 export interface DarkModeState {
-  darkMode: boolean;
   prefersDark: boolean;
 }
 
 const initialState: DarkModeState = {
-  darkMode: false,
   prefersDark: false,
 };
 
@@ -22,7 +20,7 @@ export class DarkModeService {
   constructor(private mediaMatcher: MediaMatcher, private bpObserver: BreakpointObserver) {
     // initiate check on stored preferences
     if (localStorage.getItem('prefersDarkMode') !== null) {
-      initialState.darkMode = JSON.parse(localStorage.getItem('prefersDarkMode') || 'false');
+      initialState.prefersDark = JSON.parse(localStorage.getItem('prefersDarkMode') || 'false');
       this._initialState.next(initialState);
     }
   }
@@ -31,6 +29,7 @@ export class DarkModeService {
     return this.bpObserver.observe(['(prefers-color-scheme: dark)']).pipe(
       map((prefersDark) => {
         initialState.prefersDark = prefersDark.matches;
+        localStorage.setItem('prefersDarkMode', JSON.stringify(prefersDark.matches));
         return initialState;
       }),
       catchError((err) => {
@@ -40,8 +39,8 @@ export class DarkModeService {
   }
 
   toggleDarkMode(): void {
-    initialState.darkMode = !initialState.darkMode;
+    initialState.prefersDark = !initialState.prefersDark;
     this._initialState.next(initialState);
-    localStorage.setItem('prefersDarkMode', JSON.stringify(initialState.darkMode));
+    localStorage.setItem('prefersDarkMode', JSON.stringify(initialState.prefersDark));
   }
 }

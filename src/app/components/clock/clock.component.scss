@@ -1,6 +1,11 @@
 @import '../../../scss/00_imports';
 
 :host-context(.c-clock) {
+  --color-background: #{color('light')};
+  --color-digits: #{color('dark')};
+  --color-date: #{color('neutral')};
+  --color-meridian: #{color('accent2')};
+  --color-digits-shadow: #{color('accentRGB')};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,7 +13,27 @@
   height: 100%;
   width: 100%;
   @include container-padding;
+  background-color: var(--color-background);
+  transition: background 325ms ease;
 }
+
+:host-context(.c-clock.dark) {
+  --color-background: #{color('darker')};
+  --color-digits: #{color('accent3')};
+  --color-date: #{color('accent3')};
+  --color-meridian: #{color('accent4')};
+  --color-digits-shadow: #{color('accentRGB')};
+  .c-clock-digit {
+    @include text-elevate-3(color('accent3'), 0.075);
+    &--seconds {
+      @include text-elevate-3(color('accent2'), 0.025);
+    }
+  }
+}
+
+// * {
+//   transition: all 325ms ease;
+// }
 
 .c-clock {
   &__container {
@@ -72,8 +97,8 @@
   font-style: italic;
   font-size: $clock-digit--sm;
   letter-spacing: -0.25rem;
-  color: color('dark');
-  @include text-elevate-3(color('dark'), 0.175);
+  color: var(--color-digits);
+  @include text-elevate-3(color('accent2'), 0.175);
 
   @include breakpoint(sm) {
     font-size: $clock-digit--md;
@@ -99,6 +124,12 @@
   justify-content: center;
   height: 100%;
   transform: skew(-4deg, -2deg);
+  @include breakpoint(sm) {
+    right: -18px;
+  }
+  @include breakpoint(md) {
+    right: -28px;
+  }
 
   .circle {
     height: 16px;
@@ -136,7 +167,7 @@
     font-size: $title--3;
     font-weight: 600;
     line-height: 1;
-    color: color('accent2');
+    color: var(--color-meridian);
 
     @include breakpoint(sm) {
       font-size: $title--2;
@@ -150,7 +181,7 @@
 .c-clock-date-label {
   font-size: $overline;
   font-weight: 500;
-  color: color('neutral');
+  color: var(--color-date);
   @include breakpoint(sm) {
     font-size: $body--2;
   }
