@@ -40,7 +40,6 @@ export class ClockComponent implements OnInit, AfterViewInit {
     const humanDate = moment();
     this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
     this.darkModeService.darkModeState$.subscribe((darkState) => {
-      console.log(darkState);
       darkState.prefersDark
         ? this.render.addClass(this.element.nativeElement, 'dark')
         : this.render.removeClass(this.element.nativeElement, 'dark');
@@ -74,10 +73,7 @@ export class ClockComponent implements OnInit, AfterViewInit {
       }
     );
 
-    let minuteCount = 0;
-
     setInterval(() => {
-      const momentum = 12;
       const now = moment();
       const count = Number(this.seconds);
       this.seconds = now.format('ss');
@@ -85,23 +81,14 @@ export class ClockComponent implements OnInit, AfterViewInit {
       this.hours = now.format('hh');
       this.meridian = now.format('A');
 
-      if (count >= 59) {
-        minuteCount += momentum;
-      }
-      if (minuteCount >= 60) {
-        minuteCount = 0;
-      }
-
-      clockTL
-        .to(digits[1], {
-          xPercent: Math.floor(Math.sin(minuteCount) * momentum),
-          yPercent: Math.floor(Math.sin(minuteCount) * momentum) * -1,
-        })
-        .to(digits[2], {
-          xPercent: Math.floor(Math.sin(count) * momentum),
-          yPercent: Math.floor(Math.sin(count) * momentum) * -1,
-          ease: 'power4',
-        });
+      clockTL.to(digits, {
+        yPercent: Math.floor(Math.sin(count) * count) * -1,
+        ease: 'back',
+        stagger: {
+          each: 0.125,
+          from: 'end',
+        },
+      });
     }, 1000);
   }
 

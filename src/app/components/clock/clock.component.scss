@@ -29,11 +29,10 @@
       @include text-elevate-3(color('accent2'), 0.025);
     }
   }
+  .circle {
+    @include elevate-3(color('accent1'), 0.075);
+  }
 }
-
-// * {
-//   transition: all 325ms ease;
-// }
 
 .c-clock {
   &__container {
