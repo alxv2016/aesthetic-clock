@@ -59,20 +59,6 @@ export class ClockComponent implements OnInit, AfterViewInit {
       },
     });
 
-    gsap.fromTo(
-      colons,
-      {
-        scale: 0.45,
-      },
-      {
-        scale: 1,
-        ease: 'power3',
-        transformOrigin: 'center',
-        repeat: -1,
-        yoyo: true,
-      }
-    );
-
     setInterval(() => {
       const now = moment();
       const count = Number(this.seconds);
@@ -81,14 +67,21 @@ export class ClockComponent implements OnInit, AfterViewInit {
       this.hours = now.format('hh');
       this.meridian = now.format('A');
 
-      clockTL.to(digits, {
-        yPercent: Math.floor(Math.sin(count) * count) * -1,
-        ease: 'back',
-        stagger: {
-          each: 0.125,
-          from: 'end',
-        },
-      });
+      clockTL
+        .to(digits, {
+          yPercent: Math.floor(Math.sin(count) * count) * -1,
+          ease: 'back',
+          stagger: {
+            each: 0.125,
+            from: 'end',
+          },
+        })
+        .to(colons, {
+          xPercent: Math.floor(Math.cos(count) * 80),
+          yPercent: Math.floor(Math.sin(count) * 80) * -1,
+          ease: 'power3',
+          stagger: 0.125,
+        });
     }, 1000);
   }
 
