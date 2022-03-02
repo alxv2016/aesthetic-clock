@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostBinding,
   NgZone,
+  OnDestroy,
   OnInit,
   QueryList,
   Renderer2,
@@ -12,6 +13,7 @@ import {
 } from '@angular/core';
 import {gsap} from 'gsap';
 import * as moment from 'moment';
+import {Subject} from 'rxjs';
 import {DarkModeService} from 'src/app/services/dark-mode.service';
 
 @Component({
@@ -19,14 +21,15 @@ import {DarkModeService} from 'src/app/services/dark-mode.service';
   templateUrl: './clock.component.html',
   styleUrls: ['./clock.component.scss'],
 })
-export class ClockComponent implements OnInit, AfterViewInit {
+export class ClockComponent implements OnInit, AfterViewInit, OnDestroy {
+  private unsubscribe$ = new Subject();
   seconds: string | undefined = '00';
   minutes: string | undefined = '00';
   hours: string | undefined = '00';
   todaysDate: string | undefined = 'Friday, January 16 2022';
   meridian: string | undefined = 'AM';
-  darkMode = false;
   @HostBinding('class') class = 'c-clock';
+  @ViewChild('darkModeToggle') darkModeToggle!: ElementRef;
   @ViewChildren('digit', {read: ElementRef}) digit!: QueryList<ElementRef>;
   @ViewChildren('colon', {read: ElementRef}) colon!: QueryList<ElementRef>;
   constructor(
@@ -39,11 +42,6 @@ export class ClockComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const humanDate = moment();
     this.todaysDate = humanDate.format('dddd, MMMM DD YYYY');
-    this.darkModeService.darkModeState$.subscribe((darkState) => {
-      darkState.prefersDark
-        ? this.render.addClass(this.element.nativeElement, 'dark')
-        : this.render.removeClass(this.element.nativeElement, 'dark');
-    });
   }
 
   toggleDarkMode(): void {
@@ -86,6 +84,24 @@ export class ClockComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.darkModeService.darkModeState$.subscribe((darkState) => {
+      if (darkState.prefersDark) {
+        this.render.addClass(this.element.nativeElement, 'dark');
+        this.render.addClass(this.darkModeToggle.nativeElement, 'toggled');
+        this.render.setAttribute(this.darkModeToggle.nativeElement, 'aria-label', 'Dark mode on');
+        this.render.setAttribute(this.darkModeToggle.nativeElement, 'aria-checked', 'true');
+      } else {
+        this.render.removeClass(this.element.nativeElement, 'dark');
+        this.render.removeClass(this.darkModeToggle.nativeElement, 'toggled');
+        this.render.setAttribute(this.darkModeToggle.nativeElement, 'aria-label', 'Dark mode off');
+        this.render.setAttribute(this.darkModeToggle.nativeElement, 'aria-checked', 'false');
+      }
+    });
     this.initGSAP();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(0);
+    this.unsubscribe$.complete();
   }
 }

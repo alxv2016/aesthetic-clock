@@ -188,3 +188,29 @@
     font-size: $body--1;
   }
 }
+
+.dark-mode-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-date);
+  height: 44px;
+  width: 44px;
+  border-radius: 100%;
+  outline: none;
+  transition: background 320ms ease;
+  &:hover,
+  &:focus {
+    background-color: rgba(color('neutral'), 0.125);
+  }
+  &__sun {
+    fill: rgba(color('neutral'), 0.55);
+  }
+}
+
+.dark-mode-toggle.toggled {
+  .dark-mode-toggle__sun {
+    fill: none;
+  }
+}
